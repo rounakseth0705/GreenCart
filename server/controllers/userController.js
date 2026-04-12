@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import transporter from "../configs/nodemailer.js";
 
 // Register User : /api/user/register
 export const register = async (req,res) => {
@@ -16,6 +17,13 @@ export const register = async (req,res) => {
         const hashedPassword = await bcrypt.hash(password,10);
         const user = await User.create({ name, email, password: hashedPassword });
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        const mailOptions = {
+            from: process.env.SENDER_MAIL,
+            to: email,
+            subject: `Hii, ${name.split(" ")[0]} Welcome to Greencart, a platform where you can get products that makes sense`,
+            text: `Your account has been created with email ${email}`
+        };
+        await transporter.sendMail(mailOptions);
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",  // Use secure cookies in production
