@@ -25,7 +25,7 @@ const Navbar = () => {
             {/* Desktop Menu */}
             <div className="hidden sm:flex items-center gap-8">
                 <NavLink to="/">Home</NavLink>
-                <NavLink to="/products">All Product</NavLink>
+                <NavLink to="/products">All Products</NavLink>
                 <NavLink to="/">Contact</NavLink>
 
                 <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
@@ -64,11 +64,11 @@ const Navbar = () => {
             </div>
             {/* Mobile Menu */}
             { open && (
-                <div className={`${open ? 'flex' : 'hidden'} absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}>
+                <div className={`${open ? 'flex' : 'hidden'} absolute top-[60px] z-50 left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}>
                     <NavLink to="/" onClick={() => setOpen(false)}>Home</NavLink>
                     <NavLink to="/products" onClick={() => setOpen(false)}>All Products</NavLink>
                     { user && <NavLink to="/products">My Orders</NavLink> }
-                    <Navbar to="/" onClick={() => setOpen(false)}>Contact</Navbar>
+                    <NavLink to="/" onClick={() => setOpen(false)}>Contact</NavLink>
                     {!user ? (
                         <button onClick={() => {
                             setOpen(false);
