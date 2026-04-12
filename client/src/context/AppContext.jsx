@@ -27,6 +27,7 @@ export const AppContextProvider = ({children}) => {
         if (response) {
             setUser({ email: response.data.user.email, name: response.data.user.name });
         }
+        setShowUserLogin(false);
     }
     // Fetch All Products
     const fetchProducts = async () => {
